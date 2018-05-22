@@ -1,0 +1,28 @@
+{
+  "name": "martelo",
+  "version": "0.1.0",
+  "description": "Static Asset Builder for the masses",
+  "main": "Martelo.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Caio Costa <caiocrcosta@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "autoprefixer": "8.5.0",
+    "chokidar": "2.0.3",
+    "clean-css": "4.1.11",
+    "del": "3.0.0",
+    "glob": "7.1.2",
+    "imagemin": "5.3.1",
+    "lodash": "4.17.10",
+    "minimist": "1.2.0",
+    "mkdirp": "0.5.1",
+    "node-sass": "4.9.0",
+    "postcss": "6.0.22",
+    "uglify-js": "3.3.25"
+  }
+}
