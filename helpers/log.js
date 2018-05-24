@@ -60,8 +60,7 @@ const getMessageStart = () => {
 	const date = new Date();
 	const timeString = `${date.getHours().toString().padStart(2, "0")}`
 		+ `:${date.getMinutes().toString().padStart(2, "0")}`
-		+ `:${date.getSeconds().toString().padStart(2, "0")}`
-		+ `.${date.getMilliseconds().toString().padStart(3, "0")}`;
+		+ `:${date.getSeconds().toString().padStart(2, "0")}`;
 
 	return `${colors.bgYellow + colors.fgBlack + marteloIcon + colors.reset}`
 		+ ` ${colors.bright}[${colors.fgCyan + timeString + colors.reset + colors.bright}]${colors.reset}`;
