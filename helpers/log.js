@@ -70,7 +70,11 @@ const log = (message, logLevel) => {
 	logLevel = (logLevel !== void 0) ? logLevel : level.DEFAULT;
 
 	if (args.logLevel >= logLevel) {
-		console.log(`${getMessageStart()} ${message}`);
+		const messageStart = getMessageStart();
+
+		message = message.replace("\n", "\n" + " ".repeat(11));
+
+		console.log(`${messageStart} ${message}`);
 	}
 };
 
