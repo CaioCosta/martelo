@@ -86,6 +86,10 @@ log.formatEnvironment = (environmentName) => {
 	return `${colors.bright + colors.fgMagenta + environmentName + colors.reset}`;
 };
 
+log.formatType = (type) => {
+	return `${colors.fgCyan + type + colors.reset}`;
+};
+
 log.formatNumber = (number) => {
 	return `${colors.bright + colors.fgGreen + number + colors.reset}`
 };
