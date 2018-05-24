@@ -79,5 +79,7 @@ const Martelo = require("../Martelo");
 			+ "configure your project.",
 			"FATAL"
 		);
+
+		process.exit(1);
 	}
 })();
