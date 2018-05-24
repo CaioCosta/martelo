@@ -36,6 +36,7 @@ const colors = {
 	hidden: "\x1b[8m",
 
 	fgBlack: "\x1b[30m",
+	fgGray: "\x1b[38;5;241m",
 	fgRed: "\x1b[31m",
 	fgGreen: "\x1b[32m",
 	fgYellow: "\x1b[33m",
@@ -62,8 +63,8 @@ const getMessageStart = () => {
 		+ `:${date.getMinutes().toString().padStart(2, "0")}`
 		+ `:${date.getSeconds().toString().padStart(2, "0")}`;
 
-	return `${colors.bgYellow + colors.fgBlack + marteloIcon + colors.reset}`
-		+ ` ${colors.bright}[${colors.fgCyan + timeString + colors.reset + colors.bright}]${colors.reset}`;
+	return `${colors.bgWhite + colors.fgBlack + " " + marteloIcon + colors.reset}`
+		+ ` ${colors.dim}[${colors.fgGray + timeString + colors.reset + colors.dim}]${colors.reset}`;
 };
 
 const log = (message, logLevel) => {
