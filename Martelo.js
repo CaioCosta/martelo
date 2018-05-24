@@ -7,7 +7,7 @@ class Martelo {
 	constructor(config, typeBuilders) {
 		log(`Init (log level: ${args.logLevel})`, log.level.MAIN);
 
-		this.config = config;
+		this.buildConfig = config;
 		this.environments = [];
 		this.typeBuilders = Object.assign({}, Martelo.defaultTypeBuilders, typeBuilders);
 
@@ -18,16 +18,16 @@ class Martelo {
 		const selectedEnvironment = args._[0] || Martelo.defaultEnvironment;
 
 		if (selectedEnvironment === "all") {
-			for (const environmentKey in this.config.environments) {
-				if (this.config.environments.hasOwnProperty(environmentKey)) {
+			for (const environmentKey in this.buildConfig.environments) {
+				if (this.buildConfig.environments.hasOwnProperty(environmentKey)) {
 					const environment = new Environment(environmentKey, this);
 
 					this.environments.push(environment);
 				}
 			}
 		}
-		else if (this.config.environments[selectedEnvironment] !== void 0) {
 			const environment = new Environment(selectedEnvironment, this);
+		else if (this.buildConfig.environments[this.options.environment] !== void 0) {
 
 			this.environments.push(environment);
 		}
