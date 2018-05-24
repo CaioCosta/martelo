@@ -13,6 +13,38 @@
  * args.quiet subtracts one
  * ===================================================================== */
 
+const colors = {
+	reset: "\x1b[0m",
+	bright: "\x1b[1m",
+	dim: "\x1b[2m",
+	underscore: "\x1b[4m",
+	blink: "\x1b[5m",
+	reverse: "\x1b[7m",
+	hidden: "\x1b[8m",
+
+	fgBlack: "\x1b[38;5;0m",
+	fgGray: "\x1b[38;5;245m",
+	fgRed: "\x1b[38;5;124m",
+	fgGreen: "\x1b[38;5;40m",
+	fgYellow: "\x1b[38;5;220m",
+	fgOrange: "\x1b[38;5;166m",
+	fgBlue: "\x1b[38;5;25m",
+	fgMagenta: "\x1b[38;5;161m",
+	fgCyan: "\x1b[38;5;45m",
+	fgWhite: "\x1b[38;5;231m",
+
+	ggBlack: "\x1b[48;5;0m",
+	bgRed: "\x1b[48;5;124m",
+	bgGray: "\x1b[48;5;245m",
+	bgGreen: "\x1b[48;5;28m",
+	bgYellow: "\x1b[48;5;220m",
+	bgOrange: "\x1b[48;5;166m",
+	bgBlue: "\x1b[48;5;25m",
+	bgMagenta: "\x1b[48;5;162m",
+	bgCyan: "\x1b[48;5;45m",
+	bgWhite: "\x1b[48;5;231m",
+};
+
 const level = {
 	DEFAULT: 1,
 	OFF: 0,
@@ -26,33 +58,14 @@ const level = {
 
 const levelStep = 1;
 
-const colors = {
-	reset: "\x1b[0m",
-	bright: "\x1b[1m",
-	dim: "\x1b[2m",
-	underscore: "\x1b[4m",
-	blink: "\x1b[5m",
-	reverse: "\x1b[7m",
-	hidden: "\x1b[8m",
-
-	fgBlack: "\x1b[30m",
-	fgGray: "\x1b[38;5;241m",
-	fgRed: "\x1b[31m",
-	fgGreen: "\x1b[32m",
-	fgYellow: "\x1b[33m",
-	fgBlue: "\x1b[34m",
-	fgMagenta: "\x1b[35m",
-	fgCyan: "\x1b[36m",
-	fgWhite: "\x1b[37m",
-
-	bgBlack: "\x1b[40m",
-	bgRed: "\x1b[41m",
-	bgGreen: "\x1b[42m",
-	bgYellow: "\x1b[43m",
-	bgBlue: "\x1b[44m",
-	bgMagenta: "\x1b[45m",
-	bgCyan: "\x1b[46m",
-	bgWhite: "\x1b[47m",
+const levelIcon = {
+	DEFAULT: "",
+	FATAL: colors.bgRed + colors.fgWhite + "fatal",
+	MAIN: "",
+	ERROR: colors.bgOrange + colors.fgWhite + "error",
+	WARN: colors.bgYellow + colors.fgBlack + "warn",
+	INFO: colors.bgBlue + colors.fgWhite + "info",
+	DEBUG: colors.bgGray + colors.fgBlack + "debug",
 };
 
 const getMessageStart = () => {
@@ -61,7 +74,13 @@ const getMessageStart = () => {
 		+ `:${date.getMinutes().toString().padStart(2, "0")}`
 		+ `:${date.getSeconds().toString().padStart(2, "0")}`;
 
-	return `${colors.dim}[${colors.fgGray + timeString + colors.reset + colors.dim}]${colors.reset}`;
+	return `[${colors.fgGray + timeString + colors.reset}]`;
+};
+
+const getLogTypeIcon = (logType) => {
+	const icon = (levelIcon[logType] || levelIcon.DEFAULT);
+
+	return (icon.length > 0 ? " " : "") + icon + colors.reset;
 };
 
 const log = (message, logType) => {
@@ -83,7 +102,7 @@ log.timeEnd = (actionName, startTime, logLevel) => {
 };
 
 log.formatEnvironment = (environmentName) => {
-	return `${colors.bright + colors.fgMagenta + environmentName + colors.reset}`;
+	return `${colors.fgCyan + environmentName + colors.reset}`;
 };
 
 log.formatType = (type) => {
@@ -91,7 +110,7 @@ log.formatType = (type) => {
 };
 
 log.formatNumber = (number) => {
-	return `${colors.bright + colors.fgGreen + number + colors.reset}`
+	return `${colors.fgGreen + number + colors.reset}`
 };
 
 log.formatFilename = (filename) => {
