@@ -64,10 +64,10 @@ const getMessageStart = () => {
 	return `${colors.dim}[${colors.fgGray + timeString + colors.reset + colors.dim}]${colors.reset}`;
 };
 
-const log = (message, logLevel) => {
+const log = (message, logType) => {
 	const args = require("./args");
 
-	logLevel = (logLevel !== void 0) ? logLevel : level.DEFAULT;
+	const logLevel = (level[logType] !== void 0) ? level[logType] : level.DEFAULT;
 
 	if (args.logLevel >= logLevel) {
 		const messageStart = getMessageStart();

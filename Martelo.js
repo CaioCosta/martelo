@@ -5,7 +5,7 @@ const log = require("./helpers/log");
 
 class Martelo {
 	constructor(buildConfig, options) {
-		log(`Init (log level: ${args.logLevel})`, log.level.MAIN);
+		log(`Init`, "MAIN");
 
 		this.buildConfig = buildConfig;
 		this.environments = [];
@@ -31,12 +31,12 @@ class Martelo {
 			this.environments.push(environment);
 		}
 		else {
-			log(`Environment ${this.options.environment} doesn't exist`, log.level.ERROR);
+			log(`Environment ${this.options.environment} doesn't exist`, "ERROR");
 		}
 	}
 
 	async build() {
-		log("Starting builds", log.level.MAIN);
+		log("Starting builds", "MAIN");
 
 		const startTime = Date.now();
 
@@ -44,7 +44,7 @@ class Martelo {
 			await environment.build();
 		}
 
-		log.timeEnd("Building", startTime, log.level.MAIN);
+		log.timeEnd("Building", startTime, "MAIN");
 	}
 }
 

@@ -32,12 +32,12 @@ const Martelo = require("../Martelo");
 
 				// Config file was forced, but not found. We'll exit now.
 				if (filePath === args.config) {
-					log(message, log.level.FATAL);
+					log(message, "FATAL");
 
 					process.exit(1);
 				}
 				else {
-					log(message, log.level.INFO);
+					log(message, "INFO");
 				}
 			});
 
@@ -45,7 +45,7 @@ const Martelo = require("../Martelo");
 		if (fileStat !== void 0) {
 			configFilePath = filePath;
 
-			log(`Using config from ${log.formatFilename(filePath)}`, log.level.INFO);
+			log(`Using config from ${log.formatFilename(filePath)}`, "INFO");
 
 			break;
 		}
@@ -58,7 +58,7 @@ const Martelo = require("../Martelo");
 			config = config.martelo;
 
 			if (config === void 0) {
-				log(`There's no config in ${log.formatFilename("package.json")}`, log.level.ERROR);
+				log(`There's no config in ${log.formatFilename("package.json")}`, "ERROR");
 			}
 		}
 
@@ -77,7 +77,7 @@ const Martelo = require("../Martelo");
 			"No configuration file has been found.\n"
 			+ "Please refer to the guide at https://github.com/CaioCosta/martelo to know how to "
 			+ "configure your project.",
-			log.level.FATAL
+			"FATAL"
 		);
 	}
 })();
