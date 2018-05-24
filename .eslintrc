@@ -1,7 +1,13 @@
 {
+	"env": {
+		"node" : true
+	},
 	"extends" : [
 		"eslint:recommended"
 	],
+	"parserOptions": {
+		"ecmaVersion": 2017
+	},
 	"rules": {
 		"brace-style": [1, "stroustrup"],
 		"camelcase": [1, {"properties": "always"}],
