@@ -55,16 +55,13 @@ const colors = {
 	bgWhite: "\x1b[47m",
 };
 
-const marteloIcon = String.fromCodePoint(128296);
-
 const getMessageStart = () => {
 	const date = new Date();
 	const timeString = `${date.getHours().toString().padStart(2, "0")}`
 		+ `:${date.getMinutes().toString().padStart(2, "0")}`
 		+ `:${date.getSeconds().toString().padStart(2, "0")}`;
 
-	return `${colors.bgWhite + colors.fgBlack + " " + marteloIcon + colors.reset}`
-		+ ` ${colors.dim}[${colors.fgGray + timeString + colors.reset + colors.dim}]${colors.reset}`;
+	return `${colors.dim}[${colors.fgGray + timeString + colors.reset + colors.dim}]${colors.reset}`;
 };
 
 const log = (message, logLevel) => {
