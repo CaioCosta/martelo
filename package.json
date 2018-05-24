@@ -11,6 +11,9 @@
   },
   "author": "Caio Costa <caiocrcosta@gmail.com>",
   "license": "ISC",
+  "engines": {
+    "node": ">=7.10.1"
+  },
   "dependencies": {
     "autoprefixer": "8.5.0",
     "chokidar": "2.0.3",
