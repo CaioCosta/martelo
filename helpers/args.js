@@ -1,6 +1,7 @@
 const log = require("./log");
 
 const defaultValues = {
+	config: null,
 	debug: false,
 	logLevel: log.level.DEFAULT,
 	quiet: false,
@@ -9,6 +10,7 @@ const defaultValues = {
 };
 
 const argumentAliases = {
+	config: "c",
 	debug: "d",
 	logLevel: "l",
 	quiet: "q",
