@@ -24,5 +24,8 @@
     "node-sass": "4.9.0",
     "postcss": "6.0.22",
     "uglify-js": "3.3.25"
+  },
+  "devDependencies": {
+    "eslint": "4.19.1"
   }
 }
