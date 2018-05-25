@@ -63,10 +63,17 @@ const Martelo = require("../Martelo");
 		}
 
 		if (config !== void 0) {
-			const martelo = new Martelo(config, {
-				environment: args._[0],
-				partial: args._[1],
-			});
+			let options = {};
+
+			if (args._[0]) {
+				options.environment = args._[0];
+			}
+
+			if (args._[1]) {
+				options.partial = args._[1];
+			}
+
+			const martelo = new Martelo(config, options);
 
 			return martelo.build();
 		}
