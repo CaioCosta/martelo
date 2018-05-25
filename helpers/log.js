@@ -33,7 +33,7 @@ const colors = {
 	fgCyan: "\x1b[38;5;45m",
 	fgWhite: "\x1b[38;5;231m",
 
-	ggBlack: "\x1b[48;5;0m",
+	bgBlack: "\x1b[48;5;0m",
 	bgRed: "\x1b[48;5;124m",
 	bgGray: "\x1b[48;5;245m",
 	bgGreen: "\x1b[48;5;28m",
