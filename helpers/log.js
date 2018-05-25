@@ -24,11 +24,11 @@ const colors = {
 
 	fgBlack: "\x1b[38;5;0m",
 	fgGray: "\x1b[38;5;245m",
-	fgRed: "\x1b[38;5;124m",
+	fgRed: "\x1b[38;5;160m",
 	fgGreen: "\x1b[38;5;40m",
-	fgYellow: "\x1b[38;5;220m",
-	fgOrange: "\x1b[38;5;166m",
-	fgBlue: "\x1b[38;5;25m",
+	fgYellow: "\x1b[38;5;221m",
+	fgOrange: "\x1b[38;5;202m",
+	fgBlue: "\x1b[38;5;33m",
 	fgMagenta: "\x1b[38;5;161m",
 	fgCyan: "\x1b[38;5;45m",
 	fgWhite: "\x1b[38;5;231m",
@@ -38,7 +38,7 @@ const colors = {
 	bgGray: "\x1b[48;5;245m",
 	bgGreen: "\x1b[48;5;28m",
 	bgYellow: "\x1b[48;5;220m",
-	bgOrange: "\x1b[48;5;166m",
+	bgOrange: "\x1b[48;5;172m",
 	bgBlue: "\x1b[48;5;25m",
 	bgMagenta: "\x1b[48;5;162m",
 	bgCyan: "\x1b[48;5;45m",
@@ -46,10 +46,10 @@ const colors = {
 };
 
 const level = {
-	DEFAULT: 1,
 	OFF: 0,
-	FATAL: 1,
+	DEFAULT: 1,
 	MAIN: 1,
+	FATAL: 1,
 	ERROR: 1,
 	WARN: 2,
 	INFO: 2,
@@ -60,27 +60,18 @@ const levelStep = 1;
 
 const levelIcon = {
 	DEFAULT: "",
-	FATAL: colors.bgRed + colors.fgWhite + "fatal",
 	MAIN: "",
-	ERROR: colors.bgOrange + colors.fgWhite + "error",
-	WARN: colors.bgYellow + colors.fgBlack + "warn",
-	INFO: colors.bgBlue + colors.fgWhite + "info",
-	DEBUG: colors.bgGray + colors.fgBlack + "debug",
+	FATAL: colors.bgRed + colors.fgWhite + "[f]",
+	ERROR: colors.bgOrange + colors.fgBlack + "[e]",
+	WARN: colors.bgYellow + colors.fgBlack + "[w]",
+	INFO: colors.bgBlue + colors.fgWhite + "[i]",
+	DEBUG: colors.bgGray + colors.fgBlack + "[d]",
 };
 
-const getMessageStart = () => {
-	const date = new Date();
-	const timeString = `${date.getHours().toString().padStart(2, "0")}`
-		+ `:${date.getMinutes().toString().padStart(2, "0")}`
-		+ `:${date.getSeconds().toString().padStart(2, "0")}`;
-
-	return `[${colors.fgGray + timeString + colors.reset}]`;
-};
-
-const getLogTypeIcon = (logType) => {
+const getMessageStart = (logType) => {
 	const icon = (levelIcon[logType] || levelIcon.DEFAULT);
 
-	return (icon.length > 0 ? " " : "") + icon + colors.reset;
+	return `${"mtl>" + (icon.length > 0 ? " " : "") + icon + colors.reset}`;
 };
 
 const log = (message, logType) => {
@@ -89,11 +80,9 @@ const log = (message, logType) => {
 	const logLevel = (level[logType] !== void 0) ? level[logType] : level.DEFAULT;
 
 	if (args.logLevel >= logLevel) {
-		const messageStart = getMessageStart();
+		message = " " + message.replace("\n", "\n" + " ".repeat(11));
 
-		message = message.replace("\n", "\n" + " ".repeat(11));
-
-		console.log(`${messageStart} ${message}`);
+		console.log(`${getMessageStart(logType) + message}`);
 	}
 };
 
@@ -102,11 +91,11 @@ log.timeEnd = (actionName, startTime, logLevel) => {
 };
 
 log.formatEnvironment = (environmentName) => {
-	return `${colors.fgCyan + environmentName + colors.reset}`;
+	return `${colors.fgYellow + environmentName + colors.reset}`;
 };
 
 log.formatType = (type) => {
-	return `${colors.fgCyan + type + colors.reset}`;
+	return `${colors.fgYellow + type + colors.reset}`;
 };
 
 log.formatNumber = (number) => {
