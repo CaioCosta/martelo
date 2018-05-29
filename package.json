@@ -18,10 +18,10 @@
     "martelo": "bin/cli.js"
   },
   "dependencies": {
-    "autoprefixer": "8.5.0",
+    "autoprefixer": "8.5.1",
     "chokidar": "2.0.3",
     "clean-css": "4.1.11",
-    "concat-with-sourcemaps": "^1.1.0",
+    "concat-with-sourcemaps": "1.1.0",
     "del": "3.0.0",
     "glob": "7.1.2",
     "imagemin": "5.3.1",
@@ -30,7 +30,7 @@
     "mkdirp": "0.5.1",
     "node-sass": "4.9.0",
     "postcss": "6.0.22",
-    "uglify-js": "3.3.25"
+    "uglify-js": "3.3.27"
   },
   "devDependencies": {
     "eslint": "4.19.1"
