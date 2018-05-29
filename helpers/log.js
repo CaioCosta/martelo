@@ -62,16 +62,16 @@ const levelIcon = {
 	DEFAULT: "",
 	MAIN: "",
 	FATAL: colors.bgRed + colors.fgWhite + "[f]",
-	ERROR: colors.bgOrange + colors.fgBlack + "[e]",
-	WARN: colors.bgYellow + colors.fgBlack + "[w]",
-	INFO: colors.bgBlue + colors.fgWhite + "[i]",
-	DEBUG: colors.bgGray + colors.fgBlack + "[d]",
+	ERROR: colors.fgOrange + "[e]",
+	WARN: colors.fgYellow + "[w]",
+	INFO: colors.fgBlue + "[i]",
+	DEBUG: colors.fgGray + "[d]",
 };
 
 const getMessageStart = (logType) => {
 	const icon = (levelIcon[logType] || levelIcon.DEFAULT);
 
-	return `${"mtl>" + (icon.length > 0 ? " " : "") + icon + colors.reset}`;
+	return colors.fgGray + "()=>" + (icon.length > 0 ? " " : "") + icon + colors.reset;
 };
 
 const log = (message, logType) => {
@@ -80,14 +80,14 @@ const log = (message, logType) => {
 	const logLevel = (level[logType] !== void 0) ? level[logType] : level.DEFAULT;
 
 	if (args.logLevel >= logLevel) {
-		message = " " + message.replace("\n", "\n" + " ".repeat(11));
+		message = " " + message.replace("\n", "\n" + " ".repeat(9));
 
 		console.log(`${getMessageStart(logType) + message}`);
 	}
 };
 
 log.timeEnd = (actionName, startTime, logLevel) => {
-	return log(`${actionName} ended after ${log.formatNumber((Date.now() - startTime) / 1000)}s`, logLevel);
+	return log(`${actionName} completed on ${log.formatNumber((Date.now() - startTime) / 1000)}s`, logLevel);
 };
 
 log.formatEnvironment = (environmentName) => {
