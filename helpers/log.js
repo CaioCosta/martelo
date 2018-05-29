@@ -68,16 +68,16 @@ const levelIcon = {
 	DEBUG: colors.fgGray + "[d]",
 };
 
-const getMessageStart = (logType) => {
-	const icon = (levelIcon[logType] || levelIcon.DEFAULT);
+const getMessageStart = (logType = "DEFAULT") => {
+	const icon = levelIcon[logType];
 
 	return colors.fgGray + "()=>" + (icon.length > 0 ? " " : "") + icon + colors.reset;
 };
 
-const log = (message, logType) => {
+const log = (message, logType = "DEFAULT") => {
 	const args = require("./args");
 
-	const logLevel = (level[logType] !== void 0) ? level[logType] : level.DEFAULT;
+	const logLevel = level[logType];
 
 	if (args.logLevel >= logLevel) {
 		message = " " + message.replace("\n", "\n" + " ".repeat(9));
