@@ -88,8 +88,18 @@ const log = (message, logType = "DEFAULT") => {
 	}
 };
 
-log.timeEnd = (actionName, startTime, logLevel) => {
-	return log(`${actionName} completed on ${log.formatNumber((Date.now() - startTime) / 1000)}s`, logLevel);
+log.timeEnd = (actionName, startTime, logType, success = true) => {
+	const statusWording = (
+		success
+			? colors.fgCyan + "completed"
+			: colors.bgRed + colors.fgWhite + "failed"
+	) + colors.reset;
+
+	return log(
+		`${actionName} ${statusWording} after`
+		+ ` ${log.formatNumber((Date.now() - startTime) / 1000)}s`,
+		logType
+	);
 };
 
 log.formatEnvironment = (environmentName) => {
