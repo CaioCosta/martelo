@@ -24,7 +24,7 @@ const colors = {
 
 	fgBlack: "\x1b[38;5;0m",
 	fgGray: "\x1b[38;5;245m",
-	fgRed: "\x1b[38;5;160m",
+	fgRed: "\x1b[38;5;196m",
 	fgGreen: "\x1b[38;5;40m",
 	fgYellow: "\x1b[38;5;221m",
 	fgOrange: "\x1b[38;5;202m",
