@@ -53,7 +53,6 @@ class Martelo {
 
 		log.timeEnd("Build", startTime, "MAIN", success);
 	}
-	}
 }
 
 Martelo.defaultTypeBuilders = {
