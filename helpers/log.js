@@ -4,10 +4,10 @@
  * ## Log Level info
  * OFF (0) - Nothing goes to the console
  * FATAL (1) - Crippling errors; includes Main Build info
- * ERROR (2, default) - Type errors, misconfiguration, not found etc
- * WARN (3) - No files returned, no files parsed etc
- * INFO (4) - How many files written, how long type build took etc
- * DEBUG (5) - Each file parsed, each file written, each build file modified etc
+ * ERROR (1, default) - Type errors, misconfiguration, not found etc
+ * WARN (2) - No files returned, no files parsed etc
+ * INFO (2) - How many files written, how long type build took etc
+ * DEBUG (3) - Each file parsed, each file written, each build file modified etc
  *
  * args.verbose adds one
  * args.quiet subtracts one
