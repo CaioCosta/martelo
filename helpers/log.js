@@ -80,9 +80,11 @@ const log = (message, logType = "DEFAULT") => {
 	const logLevel = level[logType];
 
 	if (args.logLevel >= logLevel) {
-		message = " " + message.replace("\n", "\n" + " ".repeat(9));
+		if (typeof message === "string") {
+			message = message.replace("\n", "\n" + " ".repeat(9));
+		}
 
-		console.log(`${getMessageStart(logType) + message}`);
+		console.log(getMessageStart(logType), message);
 	}
 };
 
