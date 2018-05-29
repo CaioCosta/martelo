@@ -7,7 +7,7 @@ class Martelo {
 	constructor(buildConfig, options) {
 		log(`Init`, "MAIN");
 
-		this.buildConfig = buildConfig;
+		this.buildConfig = Object.assign({}, Martelo.defaultBuildConfig, buildConfig);
 		this.environments = [];
 		this.options = Object.assign({}, Martelo.defaultOptions, options);
 		this.typeBuilders = Object.assign({}, Martelo.defaultTypeBuilders, this.buildConfig.typeBuilders);
@@ -53,6 +53,11 @@ Martelo.defaultTypeBuilders = {
 	images: require("./lib/Builder/ImagesBuilder"),
 	scripts: require("./lib/Builder/ScriptsBuilder"),
 	styles: require("./lib/Builder/StylesBuilder"),
+};
+
+Martelo.defaultBuildConfig = {
+	baseSourcePath: ".",
+	updateRevisionedReferences: "\\.(css|js|html)$",
 };
 
 Martelo.defaultOptions = {
