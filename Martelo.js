@@ -35,15 +35,24 @@ class Martelo {
 	}
 
 	async build() {
-		log("Starting builds", "MAIN");
+		log(`Selected environment: ${log.formatEnvironment(this.options.environment)}`, "MAIN");
 
 		const startTime = Date.now();
+		let success = true;
 
 		for (const environment of this.environments) {
-			await environment.build();
+			await environment.build()
+				.catch((error) => {
+					success = false;
+
+					log("There was an unhandled error in the build.", "FATAL");
+
+					log(error, "DEBUG");
+				});
 		}
 
-		log.timeEnd("Building", startTime, "MAIN");
+		log.timeEnd("Build", startTime, "MAIN", success);
+	}
 	}
 }
 
