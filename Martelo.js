@@ -1,6 +1,5 @@
 const Environment = require("./lib/Environment/Environment");
 
-const args = require("./helpers/args");
 const log = require("./helpers/log");
 
 class Martelo {
