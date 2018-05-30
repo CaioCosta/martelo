@@ -111,7 +111,7 @@ log.formatType = (type) => {
 };
 
 log.formatNumber = (number) => {
-	return `${colors.fgGreen + number + colors.reset}`
+	return `${colors.fgGreen + number + colors.reset}`;
 };
 
 log.formatFilename = (filename) => {

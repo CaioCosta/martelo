@@ -9,7 +9,11 @@ class Martelo {
 		this.buildConfig = Object.assign({}, Martelo.defaultBuildConfig, buildConfig);
 		this.environments = [];
 		this.options = Object.assign({}, Martelo.defaultOptions, options);
-		this.typeBuilders = Object.assign({}, Martelo.defaultTypeBuilders, this.buildConfig.typeBuilders);
+		this.typeBuilders = Object.assign(
+			{},
+			Martelo.defaultTypeBuilders,
+			this.buildConfig.typeBuilders
+		);
 
 		this.updateEnvironments();
 	}
