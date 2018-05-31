@@ -6,7 +6,19 @@ const Environment = require("./lib/Environment/Environment");
 const failTest = require("./helpers/failTest");
 const log = require("./helpers/log");
 
+/**
+ * Environment-based Static Assets Builder
+ *
+ * An instance of Martelo can build any number of environments, but it's always good to know you can
+ * instantiate it as many times as you want.
+ */
 class Martelo {
+	/**
+	 * Stores the build config, run runOptions and Type Builders, then calls updateEnvironments()
+	 *
+	 * @param config
+	 * @param runOptions
+	 */
 	constructor(config, runOptions) {
 		log(`Init`, "MAIN");
 
@@ -23,6 +35,10 @@ class Martelo {
 		this.updateEnvironments();
 	}
 
+
+	/**
+	 * Updates the environments to build based on the environment key in the run options
+	 */
 	updateEnvironments() {
 		if (this.options.environment === "all") {
 			for (const environmentKey in this.config.environments) {
@@ -54,6 +70,11 @@ class Martelo {
 		}
 	}
 
+	/**
+	 * Calls each environment's build() method synchronously
+	 *
+	 * @returns {Promise<void>}
+	 */
 	async build() {
 		log(`Selected environment: ${log.formatEnvironment(this.options.environment)}`, "MAIN");
 
