@@ -1,18 +1,23 @@
+const deepmerge = require("deepmerge");
+const path = require("path");
+
 const Environment = require("./lib/Environment/Environment");
 
+const failTest = require("./helpers/failTest");
 const log = require("./helpers/log");
 
 class Martelo {
 	constructor(config, runOptions) {
 		log(`Init`, "MAIN");
 
-		this.buildConfig = Object.assign({}, Martelo.defaultBuildConfig, buildConfig);
+		this.config = deepmerge.all([Martelo.defaultConfig, config]);
 		this.environments = [];
-		this.typeBuilders = Object.assign(
-			{},
-			Martelo.defaultTypeBuilders,
-			this.buildConfig.typeBuilders
 		this.options = Object.assign({}, Martelo.defaultRunOptions, runOptions);
+
+		failTest(
+			this.config.environments,
+			void 0,
+			`There's no ${log.formatEnvironment("environment")} key in the build config.`
 		);
 
 		this.updateEnvironments();
@@ -20,16 +25,27 @@ class Martelo {
 
 	updateEnvironments() {
 		if (this.options.environment === "all") {
-			for (const environmentKey in this.buildConfig.environments) {
-				if (this.buildConfig.environments.hasOwnProperty(environmentKey)) {
-					const environment = new Environment(environmentKey, this);
+			for (const environmentKey in this.config.environments) {
+				if (this.config.environments.hasOwnProperty(environmentKey)) {
+					const environmentConfig = this.config.environments[environmentKey]
+					const environment = new Environment(
+						environmentKey,
+						environmentConfig,
+						this.config
+					);
 
 					this.environments.push(environment);
 				}
 			}
 		}
-		else if (this.buildConfig.environments[this.options.environment] !== void 0) {
-			const environment = new Environment(this.options.environment, this);
+		else if (this.config.environments[this.options.environment] !== void 0) {
+			const environmentKey = this.options.environment;
+			const environmentConfig = this.config.environments[environmentKey];
+			const environment = new Environment(
+				environmentKey,
+				environmentConfig,
+				this.config
+			);
 
 			this.environments.push(environment);
 		}
@@ -45,7 +61,7 @@ class Martelo {
 		let success = true;
 
 		for (const environment of this.environments) {
-			await environment.build()
+			await environment.runBuilders()
 				.catch((error) => {
 					success = false;
 
@@ -59,16 +75,15 @@ class Martelo {
 	}
 }
 
-Martelo.defaultTypeBuilders = {
-	copy: require("./lib/Builder/GenericBuilder"),
-	images: require("./lib/Builder/ImagesBuilder"),
-	scripts: require("./lib/Builder/ScriptsBuilder"),
-	styles: require("./lib/Builder/StylesBuilder"),
-};
-
-Martelo.defaultBuildConfig = {
+Martelo.defaultConfig = {
 	baseSourcePath: ".",
 	updateRevisionedReferences: "\\.(css|js|html)$",
+	builderPaths: {
+		copy: __dirname + "/lib/Builder/GenericBuilder",
+		images: __dirname + "/lib/Builder/ImagesBuilder",
+		scripts: __dirname + "/lib/Builder/ScriptsBuilder",
+		styles: __dirname + "/lib/Builder/StylesBuilder",
+	},
 };
 
 Martelo.defaultRunOptions = {
