@@ -3,16 +3,16 @@ const Environment = require("./lib/Environment/Environment");
 const log = require("./helpers/log");
 
 class Martelo {
-	constructor(buildConfig, options) {
+	constructor(config, runOptions) {
 		log(`Init`, "MAIN");
 
 		this.buildConfig = Object.assign({}, Martelo.defaultBuildConfig, buildConfig);
 		this.environments = [];
-		this.options = Object.assign({}, Martelo.defaultOptions, options);
 		this.typeBuilders = Object.assign(
 			{},
 			Martelo.defaultTypeBuilders,
 			this.buildConfig.typeBuilders
+		this.options = Object.assign({}, Martelo.defaultRunOptions, runOptions);
 		);
 
 		this.updateEnvironments();
@@ -71,7 +71,7 @@ Martelo.defaultBuildConfig = {
 	updateRevisionedReferences: "\\.(css|js|html)$",
 };
 
-Martelo.defaultOptions = {
+Martelo.defaultRunOptions = {
 	environment: "development",
 	partial: false,
 };
