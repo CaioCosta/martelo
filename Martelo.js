@@ -104,6 +104,7 @@ Martelo.defaultConfig = {
 		images: __dirname + "/lib/Builders/ImagesBuilder",
 		js: __dirname + "/lib/Builders/JsBuilder",
 		css: __dirname + "/lib/Builders/CssBuilder",
+		sass: __dirname + "/lib/Builders/SassBuilder",
 	},
 };
 
