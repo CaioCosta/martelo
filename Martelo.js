@@ -1,7 +1,7 @@
 const deepmerge = require("deepmerge");
 const path = require("path");
 
-const Environment = require("./lib/Environment/Environment");
+const Environment = require("./lib/Environment");
 
 const failTest = require("./helpers/failTest");
 const log = require("./helpers/log");

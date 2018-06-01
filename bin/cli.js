@@ -5,7 +5,7 @@ const path = require("path");
 const args = require("../helpers/args");
 const log = require("../helpers/log");
 
-const FsPromise = require("../lib/FsPromise/FsPromise");
+const FsPromise = require("../lib/FsPromise");
 const Martelo = require("../Martelo");
 
 (async () => {
