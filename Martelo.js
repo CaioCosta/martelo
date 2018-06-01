@@ -100,10 +100,10 @@ Martelo.defaultConfig = {
 	baseSourcePath: ".",
 	updateRevisionedReferences: "\\.(css|js|html)$",
 	builderPaths: {
-		copy: __dirname + "/lib/Builder/GenericBuilder",
-		images: __dirname + "/lib/Builder/ImagesBuilder",
-		js: __dirname + "/lib/Builder/JsBuilder",
-		css: __dirname + "/lib/Builder/CssBuilder",
+		copy: __dirname + "/lib/Builders/GenericBuilder",
+		images: __dirname + "/lib/Builders/ImagesBuilder",
+		js: __dirname + "/lib/Builders/JsBuilder",
+		css: __dirname + "/lib/Builders/CssBuilder",
 	},
 };
 
