@@ -106,7 +106,7 @@ log.formatEnvironment = (environmentName) => {
 	return `${colors.fgYellow + environmentName + colors.reset}`;
 };
 
-log.formatType = (type) => {
+log.formatBuildName = (type) => {
 	return `${colors.fgYellow + type + colors.reset}`;
 };
 
