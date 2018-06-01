@@ -102,8 +102,8 @@ Martelo.defaultConfig = {
 	builderPaths: {
 		copy: __dirname + "/lib/Builder/GenericBuilder",
 		images: __dirname + "/lib/Builder/ImagesBuilder",
-		scripts: __dirname + "/lib/Builder/ScriptsBuilder",
-		styles: __dirname + "/lib/Builder/StylesBuilder",
+		js: __dirname + "/lib/Builder/JsBuilder",
+		css: __dirname + "/lib/Builder/CssBuilder",
 	},
 };
 
