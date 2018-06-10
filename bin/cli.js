@@ -3,9 +3,9 @@
 const path = require("path");
 
 const args = require("../helpers/args");
-const log = require("../helpers/log");
 
 const FsPromise = require("../lib/FsPromise");
+const Logger = require("../lib/Logger");
 const Martelo = require("../Martelo");
 
 (async () => {
@@ -28,16 +28,16 @@ const Martelo = require("../Martelo");
 	for (const filePath of filesToCheck) {
 		const fileStat = await FsPromise.stat(filePath)
 			.catch(() => {
-				const message = `File ${log.formatFilename(filePath)} doesn't exist`;
+				const message = `File [[f:${filePath}]] doesn't exist`;
 
 				// Config file was forced, but not found. We'll exit now.
 				if (filePath === args.config) {
-					log(message, "FATAL");
+					Logger.log(message, "FATAL");
 
 					process.exit(1);
 				}
 				else {
-					log(message, "INFO");
+					Logger.log(message, "INFO");
 				}
 			});
 
@@ -45,7 +45,7 @@ const Martelo = require("../Martelo");
 		if (fileStat !== void 0) {
 			configFilePath = filePath;
 
-			log(`Using config from ${log.formatFilename(filePath)}`, "INFO");
+			Logger.log(`Using config from [[f:${filePath}]]`, "INFO");
 
 			break;
 		}
@@ -58,7 +58,7 @@ const Martelo = require("../Martelo");
 			config = config.martelo;
 
 			if (config === void 0) {
-				log(`There's no config in ${log.formatFilename("package.json")}`, "ERROR");
+				Logger.log(`There's no config in [[f:package.json]]`, "ERROR");
 			}
 		}
 
@@ -80,12 +80,11 @@ const Martelo = require("../Martelo");
 	}
 
 	if (!config) {
-		log(
-			"No configuration file has been found.\n"
-			+ "Please refer to the guide at https://github.com/CaioCosta/martelo to know how to "
+		Logger.log([
+			"No configuration file has been found.",
+			"Please refer to the guide at https://github.com/CaioCosta/martelo to know how to "
 			+ "configure your project.",
-			"FATAL"
-		);
+		], "FATAL");
 
 		process.exit(1);
 	}

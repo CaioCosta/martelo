@@ -2,6 +2,7 @@ const deepmerge = require("deepmerge");
 const path = require("path");
 
 const Environment = require("./lib/Environment");
+const Logger = require("./lib/Logger");
 
 const failTest = require("./helpers/failTest");
 const log = require("./helpers/log");
@@ -20,7 +21,7 @@ class Martelo {
 	 * @param runOptions
 	 */
 	constructor(config, runOptions) {
-		log(`Init`, "MAIN");
+		Logger.log(`Init`, "MAIN");
 
 		this.config = deepmerge.all([Martelo.defaultConfig, config]);
 		this.environments = [];
@@ -29,7 +30,7 @@ class Martelo {
 		failTest(
 			this.config.environments,
 			void 0,
-			`There's no ${log.formatEnvironment("environment")} key in the build config.`
+			`There's no [[e:environment]] key in the build config.`
 		);
 
 		this.updateEnvironments();
@@ -66,7 +67,7 @@ class Martelo {
 			this.environments.push(environment);
 		}
 		else {
-			log(`Environment ${this.options.environment} doesn't exist`, "ERROR");
+			Logger.log(`Environment [[e:${this.options.environment}]] doesn't exist`, "ERROR");
 		}
 	}
 
@@ -76,7 +77,7 @@ class Martelo {
 	 * @returns {Promise<void>}
 	 */
 	async build() {
-		log(`Selected environment: ${log.formatEnvironment(this.options.environment)}`, "MAIN");
+		Logger.log(`Selected environment: [[e:${this.options.environment}]]`, "MAIN");
 
 		const startTime = Date.now();
 		let success = true;
@@ -86,13 +87,13 @@ class Martelo {
 				.catch((error) => {
 					success = false;
 
-					log("There was an unhandled error in the build.", "FATAL");
+					Logger.log("There was an unhandled error in the build.", "FATAL");
 
-					log(error, "DEBUG");
+					Logger.log(error, "DEBUG");
 				});
 		}
 
-		log.timeEnd("Build", startTime, "MAIN", success);
+		Logger.timeEnd("Build", startTime, "MAIN", success);
 	}
 }
 
