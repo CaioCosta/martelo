@@ -25,6 +25,8 @@ const Martelo = require("../Martelo");
 		filesToCheck.unshift(args.config);
 	}
 
+	Logger.setCurrentLogLevel(args.logLevel);
+
 	for (const filePath of filesToCheck) {
 		const fileStat = await FsPromise.stat(filePath)
 			.catch(() => {
