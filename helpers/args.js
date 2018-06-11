@@ -1,9 +1,9 @@
-const log = require("./log");
+const Logger = require("../lib/Logger");
 
 const defaultValues = {
 	config: null,
 	debug: false,
-	logLevel: log.level.DEFAULT,
+	logLevel: Logger.getLevel("DEFAULT"),
 	quiet: false,
 	verbose: false,
 	watch: false,
@@ -24,15 +24,15 @@ const argv = require("minimist")(process.argv.slice(2), {
 });
 
 if (argv.verbose) {
-	argv.logLevel += log.levelStep;
+	argv.logLevel += Logger.getLevelStep();
 }
 
 if (argv.quiet) {
-	argv.logLevel -= log.levelStep;
+	argv.logLevel -= Logger.getLevelStep();
 }
 
 if (argv.debug) {
-	argv.logLevel = log.level.DEBUG;
+	argv.logLevel = Logger.getLevel("DEBUG");
 }
 
 exports = module.exports = argv;

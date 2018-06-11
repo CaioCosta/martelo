@@ -5,7 +5,6 @@ const Environment = require("./lib/Environment");
 const Logger = require("./lib/Logger");
 
 const failTest = require("./helpers/failTest");
-const log = require("./helpers/log");
 
 /**
  * Environment-based Static Assets Builder
