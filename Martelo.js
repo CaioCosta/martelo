@@ -95,6 +95,14 @@ class Martelo {
 
 		Logger.timeEnd("Build", startTime, "MAIN", success);
 	}
+
+	async watch() {
+		Logger.log("Watching for changes...");
+
+		for (const environment of this.environments) {
+			await environment.runWatchers();
+		}
+	}
 }
 
 Martelo.defaultConfig = {
