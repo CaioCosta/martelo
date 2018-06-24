@@ -7,7 +7,8 @@
 		"eslint:recommended"
 	],
 	"parserOptions": {
-		"ecmaVersion": 2017
+		"ecmaVersion": 2017,
+		"sourceType": "module"
 	},
 	"rules": {
 		"brace-style": [1, "stroustrup"],
@@ -55,7 +56,7 @@
 			"asyncArrow": "always"
 		}],
 		"spaced-comment": [1, "always"],
-		"strict": [1, "function"]
+		"strict": [1, "safe"]
 	}
 }
 
