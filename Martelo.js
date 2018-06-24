@@ -1,5 +1,4 @@
 const deepmerge = require("deepmerge");
-const path = require("path");
 
 const Environment = require("./lib/Environment");
 const Logger = require("./lib/Logger");
