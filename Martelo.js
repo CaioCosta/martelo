@@ -101,6 +101,12 @@ class Martelo {
 			await environment.runWatchers();
 		}
 	}
+
+	async sync() {
+		const browserSync = require("browser-sync");
+
+		browserSync.init(this.config.syncOptions);
+	}
 }
 
 Martelo.defaultConfig = {
@@ -113,6 +119,7 @@ Martelo.defaultConfig = {
 		css: __dirname + "/lib/Builders/CssBuilder",
 		sass: __dirname + "/lib/Builders/SassBuilder",
 	},
+	syncOptions: {},
 };
 
 Martelo.defaultRunOptions = {
