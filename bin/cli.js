@@ -1,93 +1,46 @@
 #!/usr/bin/env node
 
-const path = require("path");
+const commander = require("commander");
+const pkg = require("../package");
 
-const args = require("../helpers/args");
+const loadConfig = require("../helpers/loadConfig");
 
-const FsPromise = require("../lib/FsPromise");
-const Logger = require("../lib/Logger");
-const Martelo = require("../Martelo");
+async function createMarteloInstance(environment) {
+	const Martelo = require("../Martelo");
 
-(async () => {
-	"use strict";
+	const options = {};
+	const config = await loadConfig(commander.config);
 
-	const filesToCheck = [
-		"martelo.config.js",
-		"martelo.config.json",
-		"package.json",
-	];
-
-	let config = null;
-	let configFilePath = null;
-
-	// Config file parameter is set, let's add it to the top of the file check list
-	if (args.config !== null) {
-		filesToCheck.unshift(args.config);
+	if (environment != null) {
+		options.environment = environment;
 	}
 
-	Logger.setCurrentLogLevel(args.logLevel);
+	return new Martelo(config);
+}
 
-	for (const filePath of filesToCheck) {
-		const fileStat = await FsPromise.stat(filePath)
-			.catch(() => {
-				const message = `File [[f:${filePath}]] doesn't exist`;
+commander
+	.version(pkg.version, "-v, --version")
+	.description(pkg.description)
+	.option("-c, --config <file>", "Path to custom config file");
 
-				// Config file was forced, but not found. We'll exit now.
-				if (filePath === args.config) {
-					Logger.log(message, "FATAL");
+commander
+	.command("build [environment]")
+	.alias("b")
+	.description("Builds the selected environment")
+	.action(async (environment) => {
+		const martelo = await createMarteloInstance(environment);
 
-					process.exit(1);
-				}
-				else {
-					Logger.log(message, "INFO");
-				}
-			});
+		return martelo.build();
+	});
 
-		// Config file is found; break out of the loop
-		if (fileStat !== void 0) {
-			configFilePath = filePath;
+commander
+	.command("watch [environment]")
+	.alias("w")
+	.description("Watches for changes in the selected environment and run builders on each change")
+	.action(async (environment) => {
+		const martelo = await createMarteloInstance(environment);
 
-			Logger.log(`Using config from [[f:${filePath}]]`, "INFO");
+		return martelo.watch();
+	});
 
-			break;
-		}
-	}
-
-	if (configFilePath !== null) {
-		config = require(path.resolve(configFilePath));
-
-		if (configFilePath === "package.json") {
-			config = config.martelo;
-
-			if (config === void 0) {
-				Logger.log(`There's no config in [[f:package.json]]`, "ERROR");
-			}
-		}
-
-		if (config !== void 0) {
-			let options = {};
-
-			if (args._[0]) {
-				options.environment = args._[0];
-			}
-
-			if (args._[1]) {
-				options.partial = args._[1];
-			}
-
-			const martelo = new Martelo(config, options);
-
-			return martelo.build();
-		}
-	}
-
-	if (!config) {
-		Logger.log([
-			"No configuration file has been found.",
-			"Please refer to the guide at https://github.com/CaioCosta/martelo to know how to "
-			+ "configure your project.",
-		], "FATAL");
-
-		process.exit(1);
-	}
-})();
+commander.parse(process.argv);
