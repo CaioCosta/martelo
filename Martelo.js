@@ -12,23 +12,31 @@ const failTest = require("./helpers/failTest");
  * instantiate it as many times as you want.
  */
 class Martelo {
+	static parseConfig(config) {
+		return deepmerge.all([Martelo.defaultConfig, config]);
+	}
+
 	/**
-	 * Stores the build config, run runOptions and Type Builders, then calls updateEnvironments()
+	 * Stores the build config, runOptions and Type Builders, then calls updateEnvironments()
 	 *
 	 * @param config
 	 * @param runOptions
 	 */
 	constructor(config, runOptions) {
-		Logger.log(`Init`, "MAIN");
+		Logger.log(`Martelo is running`, "MAIN");
 
-		this.config = deepmerge.all([Martelo.defaultConfig, config]);
+		this._ = {
+			config: {},
+		};
+
+		this.config = config;
 		this.environments = [];
 		this.options = Object.assign({}, Martelo.defaultRunOptions, runOptions);
 
 		failTest(
 			this.config.environments,
 			void 0,
-			`There's no [[e:environment]] key in the build config.`
+			"There's no [[e:environment]] key in the build config."
 		);
 
 		this.updateEnvironments();
@@ -100,6 +108,14 @@ class Martelo {
 		for (const environment of this.environments) {
 			await environment.runWatchers();
 		}
+	}
+
+	set config(config) {
+		this._.config = Martelo.parseConfig(config);
+	}
+
+	get config() {
+		return this._.config;
 	}
 }
 
