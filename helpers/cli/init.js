@@ -1,7 +1,7 @@
 const inquirer = require("inquirer");
 const stringifyObject = require("stringify-object");
 
-const Config = require("../../lib/ConfigFileLoader");
+const ConfigFileLoader = require("../../lib/ConfigFileLoader");
 const Logger = require("../../lib/Logger");
 
 const inquiryPrefix = Logger.getMessageStart();
@@ -11,7 +11,9 @@ function validateNotEmpty(value) {
 }
 
 async function loadConfig(customConfigFilePath) {
-	return await Config.load(await Config.getAvailableFilePath(customConfigFilePath));
+	return await ConfigFileLoader.load(
+		await ConfigFileLoader.getAvailableFilePath(customConfigFilePath)
+	);
 }
 
 function inquireBaseSourcePath(currentConfig) {
@@ -219,9 +221,19 @@ async function loopPaths(questionMessage, defaultValues) {
 }
 
 async function init(customConfigFilePath) {
-	const currentConfig = await loadConfig(customConfigFilePath) || {};
+	Logger.setCurrentLogLevel(Logger.getCurrentLogLevel() + Logger.getLevelStep());
 
+	const configFilePath = await ConfigFileLoader.getAvailableFilePath(customConfigFilePath);
+
+	let currentConfig = {};
 	let config = {};
+
+	if (configFilePath === null) {
+		Logger.log(`[[f:${customConfigFilePath}]] was not found`, "WARN");
+	}
+	else {
+		currentConfig = ConfigFileLoader.load(configFilePath);
+	}
 
 	config.baseSourcePath = await inquireBaseSourcePath(currentConfig.baseSourcePath);
 	config.environments = await loopEnvironments(currentConfig.environments);
