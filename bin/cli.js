@@ -37,8 +37,11 @@ commander
 	.command("watch [environment]")
 	.alias("w")
 	.description("Watches for changes in the selected environment and run builders on each change")
+	.option("-b, --build", "Builds the project before watching for changes")
 	.action(async (environment) => {
 		const martelo = await createMarteloInstance(environment);
+
+		await martelo.build();
 
 		return martelo.watch();
 	});
