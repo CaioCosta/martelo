@@ -7,11 +7,12 @@
 		"eslint:recommended"
 	],
 	"parserOptions": {
-		"ecmaVersion": 2017
+		"ecmaVersion": 2017,
+		"sourceType": "module"
 	},
 	"rules": {
 		"brace-style": [1, "stroustrup"],
-		"camelcase": [1, {"properties": "always"}],
+		"camelcase": [1, { "properties": "always" }],
 		"comma-dangle" : [1, "always-multiline"],
 		"curly": [1, "all"],
 		"func-call-spacing": [1, "never"],
@@ -30,7 +31,7 @@
 		"newline-after-var": 1,
 		"newline-before-return": 1,
 		"no-new": 0,
-		"no-multiple-empty-lines" : [1, {"max": 4, "maxBOF": 1}],
+		"no-multiple-empty-lines" : [1, { "max": 4, "maxBOF": 1 }],
 		"no-trailing-spaces": 1,
 		"no-unused-vars" : 1,
 		"no-undef" : 1,
@@ -55,7 +56,7 @@
 			"asyncArrow": "always"
 		}],
 		"spaced-comment": [1, "always"],
-		"strict": [1, "function"]
+		"strict": [1, "safe"]
 	}
 }
 

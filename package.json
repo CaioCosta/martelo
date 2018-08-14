@@ -22,6 +22,7 @@
     "browser-sync": "2.24.4",
     "chokidar": "2.0.3",
     "clean-css": "4.1.11",
+    "commander": "2.15.1",
     "concat-with-sourcemaps": "1.1.0",
     "deepmerge": "2.1.1",
     "del": "3.0.0",
