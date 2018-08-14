@@ -23,7 +23,7 @@ class Martelo {
 	 * @param runOptions
 	 */
 	constructor(config, runOptions) {
-		Logger.log(`Martelo is running`, "MAIN");
+		Logger.log("Martelo is running", "MAIN");
 
 		this._ = {
 			config: {},
