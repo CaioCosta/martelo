@@ -103,7 +103,7 @@ class Martelo {
 	}
 
 	async watch() {
-		Logger.log("Watching for changes...");
+		Logger.log("[[a:watch]] Watching for changes...");
 
 		for (const environment of this.environments) {
 			await environment.runWatchers();
