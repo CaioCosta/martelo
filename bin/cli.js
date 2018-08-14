@@ -43,4 +43,12 @@ commander
 		return martelo.watch();
 	});
 
+commander
+	.command("init")
+	.alias("i")
+	.description("Inits the configuration and writes to martelo.config.js")
+	.action(() => {
+		require("../helpers/cli/init")(commander.config);
+	});
+
 commander.parse(process.argv);
