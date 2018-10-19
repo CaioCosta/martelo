@@ -13,7 +13,20 @@ const failTest = require("./helpers/failTest");
  */
 class Martelo {
 	static parseConfig(config) {
-		return deepmerge.all([Martelo.defaultConfig, config]);
+		let userConfig = deepmerge.all([Martelo.defaultConfig, config]);
+
+		// Transform string-based `watch` properties into arrays
+		for (var buildKey in userConfig.builds) {
+			if (
+				userConfig.builds.hasOwnProperty(buildKey)
+				&& (userConfig.builds[buildKey].watch !== void 0)
+				&& (typeof userConfig.builds[buildKey].watch === "string")
+			) {
+				userConfig.builds[buildKey].watch = [userConfig.builds[buildKey].watch];
+			}
+		}
+
+		return userConfig;
 	}
 
 	/**
