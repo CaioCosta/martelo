@@ -40,6 +40,7 @@ class Martelo {
 
 		this._ = {
 			config: {},
+			browserSyncInstance: null,
 		};
 
 		this.config = config;
@@ -115,18 +116,18 @@ class Martelo {
 		Logger.timeEnd("Build", startTime, "MAIN", success);
 	}
 
-	async watch() {
+	async watch(browserSync) {
 		Logger.log("[[a:watch]] Watching for changes...");
 
 		for (const environment of this.environments) {
-			await environment.runWatchers();
+			await environment.runWatchers(browserSync);
 		}
 	}
 
-	async sync() {
-		const browserSync = require("browser-sync");
+	async sync(browserSync) {
+		browserSync = (browserSync || require("browser-sync").create());
 
-		browserSync.init(this.config.syncOptions);
+		browserSync.init(this.config.sync);
 	}
 
 	set config(config) {
@@ -148,7 +149,9 @@ Martelo.defaultConfig = {
 		css: __dirname + "/lib/Builders/CssBuilder",
 		sass: __dirname + "/lib/Builders/SassBuilder",
 	},
-	syncOptions: {},
+	sync: {
+		logFileChanges: false,
+	},
 };
 
 Martelo.defaultRunOptions = {
